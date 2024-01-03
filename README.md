@@ -17,6 +17,7 @@ This is a <b>Personal Note Taking App</b> project<br>
 - Save notes in localstore
 - Save notes in database (needs back-end)
 - Add `tag` attribute to note
+- Pinned notes
 
 ## Note
 Model:
