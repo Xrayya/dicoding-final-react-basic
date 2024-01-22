@@ -25,7 +25,7 @@ class Main extends React.Component<MainProps, MainState> {
   render() {
     const { notes } = this.state;
     return (
-      <div>
+      <div className="pt-16">
         <AddNoteForm />
         <NoteDetail />
         <NoteGrid label={"Active Notes"}>
