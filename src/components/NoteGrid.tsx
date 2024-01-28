@@ -5,7 +5,7 @@ type NoteGridProps = React.PropsWithChildren<{
 function NoteGrid({ label, children }: NoteGridProps) {
   return (
     <div>
-      <h5>{label}</h5>
+      <h2>{label}</h2>
       <div>{children}</div>
     </div>
   );
