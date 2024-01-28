@@ -6,13 +6,13 @@ import NoteGrid from "./NoteGrid";
 import * as NoteItem from "./NoteItem";
 import { getInitialData } from "@/fixtures/dummy-data";
 
-type MainProps = {};
-type MainState = {
+type mainProps = {};
+type mainStates = {
   notes: Note[];
 };
 
-class Main extends React.Component<MainProps, MainState> {
-  constructor(props: MainProps) {
+class Main extends React.Component<mainProps, mainStates> {
+  constructor(props: mainProps) {
     super(props);
 
     this.state = {
