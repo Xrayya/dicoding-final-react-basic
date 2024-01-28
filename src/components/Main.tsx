@@ -4,6 +4,7 @@ import AddNoteForm from "./AddNoteForm";
 import NoteDetail from "./NoteDetail";
 import NoteGrid from "./NoteGrid";
 import * as NoteItem from "./NoteItem";
+import { getInitialData } from "@/fixtures/dummy-data";
 
 type MainProps = {};
 type MainState = {
@@ -15,7 +16,7 @@ class Main extends React.Component<MainProps, MainState> {
     super(props);
 
     this.state = {
-      notes: [],
+      notes: getInitialData(),
     };
   }
 
