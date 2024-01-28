@@ -20,14 +20,31 @@ class Main extends React.Component<MainProps, MainState> {
     };
   }
 
-  private handleItemDelete = (e: React.MouseEvent<HTMLButtonElement>) => {};
-  private handleItemArchive = (e: React.MouseEvent<HTMLButtonElement>) => {};
-  private handleItemUnarchive = (e: React.MouseEvent<HTMLButtonElement>) => {};
+  private handleAddNote = (noteTitle: string, noteBody: string) => {
+    this.setState(({ notes }) => {
+      return {
+        notes: [
+          ...notes,
+          {
+            id: notes.length + 1,
+            title: noteTitle,
+            body: noteBody,
+            archived: false,
+            createdAt: new Date(),
+          },
+        ],
+      };
+    });
+  };
+
+  private handleItemDelete = (e: React.MouseEvent<HTMLButtonElement>) => { };
+  private handleItemArchive = (e: React.MouseEvent<HTMLButtonElement>) => { };
+  private handleItemUnarchive = (e: React.MouseEvent<HTMLButtonElement>) => { };
   render() {
     const { notes } = this.state;
     return (
       <div className="pt-16">
-        <AddNoteForm />
+        <AddNoteForm onAddNote={this.handleAddNote} />
         <NoteDetail />
         <NoteGrid label={"Active Notes"}>
           {notes
