@@ -5,7 +5,7 @@ import "./styles/index.css"
 
 function App() {
   return (
-    <div className="bg-light">
+    <div className="bg-slate-50 text-slate-800">
       <Header />
       <Main />
       <Footer />
