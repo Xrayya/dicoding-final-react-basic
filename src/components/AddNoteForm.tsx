@@ -2,7 +2,7 @@ import React from "react";
 import { Input, TextArea } from "./Form";
 
 type addNoteProps = {
-  onPost: (noteTitle: string, noteBody: string) => any;
+  onAddNote: (noteTitle: string, noteBody: string) => any;
 };
 
 type addNoteStates = {
@@ -38,7 +38,7 @@ class AddNoteForm extends React.Component<addNoteProps, addNoteStates> {
           className="p-4 rounded-lg bg-slate-300"
           onSubmit={(e) => {
             e.preventDefault();
-            this.props.onPost(this.state.noteTitle, this.state.noteBody);
+            this.props.onAddNote(this.state.noteTitle, this.state.noteBody);
           }}
         >
           <h2 className="text-2xl font-bold text-secondary">Add Note</h2>
