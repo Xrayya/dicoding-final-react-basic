@@ -4,6 +4,9 @@ export default {
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
+      borderWidth: {
+        "1": "1px",
+      },
       colors: {
         primary: "#90c46c",
         secondary: "#488dcf",
