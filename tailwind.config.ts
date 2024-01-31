@@ -14,6 +14,9 @@ export default {
         warning: "#fde047",
         info: "#3b82f6",
       },
+      gridTemplateColumns: {
+        "auto-fill-288": "repeat(auto-fill, minmax(288px, 1fr))",
+      },
     },
   },
   plugins: [],
