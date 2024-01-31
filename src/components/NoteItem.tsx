@@ -12,6 +12,7 @@ type NoteDateProps = {
 
 type NoteBodyProps = {
   body: Note["body"];
+  maxWord?: number;
 };
 
 type NoteButton = {
@@ -42,8 +43,15 @@ export function DateString({ date, locale, options }: NoteDateProps) {
   );
 }
 
-export function Body({ body }: NoteBodyProps) {
-  return <p className="p-2 text-justify">{body}</p>;
+export function Body({ body, maxWord }: NoteBodyProps) {
+  const words: string[] = body.split(" ");
+  return (
+    <p className="p-2 text-justify text-slate-500">
+      {maxWord
+        ? `${words.slice(0, maxWord).join(" ")}${words.length > maxWord ? "..." : ""}`
+        : body}
+    </p>
+  );
 }
 
 export function Button({ label, type, onClick }: NoteButton) {
@@ -77,7 +85,7 @@ export function ButtonGroup({ children }: NoteButtonGroup) {
 
 export function Item({ children }: NoteItemProps) {
   return (
-    <div className="w-fit border-2 border-slate-500 rounded-lg overflow-hidden">
+    <div className="w-fit border-2 border-slate-600 rounded-lg overflow-hidden">
       {children}
     </div>
   );

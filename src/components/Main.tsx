@@ -57,7 +57,7 @@ class Main extends React.Component<mainProps, mainStates> {
                   locale={"en-US"}
                   options={{ day: "numeric", month: "long", year: "numeric" }}
                 />
-                <NoteItem.Body body={note.body} />
+                <NoteItem.Body body={note.body} maxWord={20} />
                 <NoteItem.ButtonGroup>
                   <NoteItem.Button
                     label={"Delete"}
@@ -82,7 +82,7 @@ class Main extends React.Component<mainProps, mainStates> {
                   locale={"en-US"}
                   options={{ day: "numeric", month: "long", year: "numeric" }}
                 />
-                <NoteItem.Body body={note.body} />
+                <NoteItem.Body body={note.body} maxWord={20} />
                 <NoteItem.ButtonGroup>
                   <NoteItem.Button
                     label={"Delete"}
