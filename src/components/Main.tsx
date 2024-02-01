@@ -61,6 +61,7 @@ class Main extends React.Component<mainProps, mainState> {
                 <NoteItem.ButtonGroup>
                   <NoteItem.Button
                     label={"Delete"}
+                    type="error"
                     onClick={this.handleItemDelete}
                   />
                   <NoteItem.Button
@@ -86,6 +87,7 @@ class Main extends React.Component<mainProps, mainState> {
                 <NoteItem.ButtonGroup>
                   <NoteItem.Button
                     label={"Delete"}
+                    type="error"
                     onClick={this.handleItemDelete}
                   />
                   <NoteItem.Button
