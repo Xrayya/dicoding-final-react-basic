@@ -7,11 +7,11 @@ import * as NoteItem from "./NoteItem";
 import { getInitialData } from "@/fixtures/dummy-data";
 
 type mainProps = {};
-type mainStates = {
+type mainState = {
   notes: Note[];
 };
 
-class Main extends React.Component<mainProps, mainStates> {
+class Main extends React.Component<mainProps, mainState> {
   constructor(props: mainProps) {
     super(props);
 

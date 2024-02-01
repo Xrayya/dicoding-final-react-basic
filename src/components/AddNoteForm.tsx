@@ -5,12 +5,12 @@ type addNoteProps = {
   onAddNote: (noteTitle: string, noteBody: string) => any;
 };
 
-type addNoteStates = {
+type addNoteState = {
   noteTitle: string;
   noteBody: string;
 };
 
-class AddNoteForm extends React.Component<addNoteProps, addNoteStates> {
+class AddNoteForm extends React.Component<addNoteProps, addNoteState> {
   constructor(props: addNoteProps) {
     super(props);
     this.state = {
