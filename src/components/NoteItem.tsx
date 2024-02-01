@@ -46,7 +46,7 @@ export function DateString({ date, locale, options }: NoteDateProps) {
 export function Body({ body, maxWord }: NoteBodyProps) {
   const words: string[] = body.split(" ");
   return (
-    <p className="p-2 text-justify text-slate-500">
+    <p className="p-2 flex-1 text-justify text-slate-500">
       {maxWord
         ? `${words.slice(0, maxWord).join(" ")}${words.length > maxWord ? "..." : ""}`
         : body}
@@ -85,7 +85,7 @@ export function ButtonGroup({ children }: NoteButtonGroup) {
 
 export function Item({ children }: NoteItemProps) {
   return (
-    <div className="w-fit border-2 border-slate-600 rounded-lg overflow-hidden">
+    <div className="w-fit flex flex-col justify-start border-2 border-slate-600 rounded-lg overflow-hidden">
       {children}
     </div>
   );
