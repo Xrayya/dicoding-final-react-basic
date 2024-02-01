@@ -55,7 +55,7 @@ class Main extends React.Component<mainProps, mainState> {
                 <NoteItem.DateString
                   date={note.createdAt}
                   locale={"en-US"}
-                  options={{ day: "numeric", month: "long", year: "numeric" }}
+                  options={{ day: "numeric", month: "short", year: "numeric" }}
                 />
                 <NoteItem.Body body={note.body} maxWord={20} />
                 <NoteItem.ButtonGroup>
