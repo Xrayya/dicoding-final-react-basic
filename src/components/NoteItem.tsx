@@ -38,7 +38,7 @@ export function Title({ title }: NoteTitleProps) {
 
 export function DateString({ date, locale, options }: NoteDateProps) {
   return (
-    <div className="text-sm text-end text-secondary opacity-75">
+    <div className="text-sm text-end text-secondary px-2">
       {date.toLocaleDateString(locale, options)}
     </div>
   );
