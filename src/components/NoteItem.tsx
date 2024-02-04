@@ -18,7 +18,8 @@ type NoteBodyProps = {
 type NoteButton = {
   label: string;
   type?: "normal" | "error" | "warning" | "info";
-  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  noteId: Note["id"];
+  onClick: (noteId: Note["id"]) => any;
 };
 
 type NoteButtonGroup = {
@@ -54,7 +55,7 @@ export function Body({ body, maxWord }: NoteBodyProps) {
   );
 }
 
-export function Button({ label, type, onClick }: NoteButton) {
+export function Button({ label, type, noteId, onClick }: NoteButton) {
   let typeClass: string = "py-1 px-2 w-full ";
   switch (type) {
     case "info":
@@ -73,7 +74,12 @@ export function Button({ label, type, onClick }: NoteButton) {
   }
 
   return (
-    <button className={typeClass} onClick={onClick}>
+    <button
+      className={typeClass}
+      onClick={() => {
+        onClick(noteId);
+      }}
+    >
       {label}
     </button>
   );
