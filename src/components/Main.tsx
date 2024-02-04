@@ -9,6 +9,8 @@ import { getInitialData } from "@/fixtures/dummy-data";
 type mainProps = {};
 type mainState = {
   notes: Note[];
+  addNote: boolean;
+  focusedNote?: Note;
 };
 
 class Main extends React.Component<mainProps, mainState> {
@@ -17,6 +19,8 @@ class Main extends React.Component<mainProps, mainState> {
 
     this.state = {
       notes: getInitialData(),
+      addNote: false,
+      focusedNote: undefined,
     };
   }
 
@@ -26,7 +30,7 @@ class Main extends React.Component<mainProps, mainState> {
         notes: [
           ...notes,
           {
-            id: notes.length + 1,
+            id: notes[notes.length - 1].id + 1,
             title: noteTitle,
             body: noteBody,
             archived: false,
@@ -37,15 +41,57 @@ class Main extends React.Component<mainProps, mainState> {
     });
   };
 
-  private handleItemDelete = (e: React.MouseEvent<HTMLButtonElement>) => { };
-  private handleItemArchive = (e: React.MouseEvent<HTMLButtonElement>) => { };
-  private handleItemUnarchive = (e: React.MouseEvent<HTMLButtonElement>) => { };
+  private handleItemDelete = (noteId: Note["id"]) => {
+    this.setState(({ notes, ...rest }) => {
+      return {
+        ...rest,
+        notes: [...notes.filter((note) => note.id !== noteId)],
+      };
+    });
+  };
+
+  private handleItemArchive = (noteId: Note["id"]) => {
+    this.setState(({ notes, ...rest }) => {
+      notes[notes.findIndex((note) => note.id === noteId)].archived = true;
+      return {
+        ...rest,
+        notes: [...notes],
+      };
+    });
+  };
+
+  private handleItemUnarchive = (noteId: Note["id"]) => {
+    this.setState(({ notes, ...rest }) => {
+      notes[notes.findIndex((note) => note.id === noteId)].archived = false;
+      return {
+        ...rest,
+        notes: [...notes],
+      };
+    });
+  };
+
+  private handleDetailClose = () => {
+    this.setState((prev) => {
+      return {
+        ...prev,
+        focusedNote: undefined,
+      };
+    });
+  };
+
   render() {
     const { notes } = this.state;
     return (
-      <div className="pt-16">
-        <AddNoteForm onAddNote={this.handleAddNote} />
-        <NoteDetail />
+      <div className="p-32 pt-16">
+        {this.state.addNote ? (
+          <AddNoteForm onAddNote={this.handleAddNote} />
+        ) : null}
+        {this.state.focusedNote ? (
+          <NoteDetail
+            note={this.state.focusedNote}
+            onClose={this.handleDetailClose}
+          />
+        ) : null}
         <NoteGrid label={"Active Notes"}>
           {notes
             .filter((note) => !note.archived)
@@ -62,10 +108,12 @@ class Main extends React.Component<mainProps, mainState> {
                   <NoteItem.Button
                     label={"Delete"}
                     type="error"
+                    noteId={note.id}
                     onClick={this.handleItemDelete}
                   />
                   <NoteItem.Button
                     label={"Archive"}
+                    noteId={note.id}
                     onClick={this.handleItemArchive}
                   />
                 </NoteItem.ButtonGroup>
@@ -88,10 +136,12 @@ class Main extends React.Component<mainProps, mainState> {
                   <NoteItem.Button
                     label={"Delete"}
                     type="error"
+                    noteId={note.id}
                     onClick={this.handleItemDelete}
                   />
                   <NoteItem.Button
                     label={"Unarchive"}
+                    noteId={note.id}
                     onClick={this.handleItemUnarchive}
                   />
                 </NoteItem.ButtonGroup>
