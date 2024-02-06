@@ -3,6 +3,11 @@
 Repository for the final project learning path "Learn Creating Web Application with React"<br>
 This is a <b>Personal Note Taking App</b> project<br>
 
+## Tech Stack
+- [React](https://react.dev/)
+- [Vite](https://vitejs.dev/) (Typescript + SWC)
+- [Tailwindcss](https://tailwindcss.com/) (with postcss and autoprefixer)
+
 ## Features:
 
 ### Key:
@@ -14,7 +19,7 @@ This is a <b>Personal Note Taking App</b> project<br>
 ### Opt:
 
 - [x] Search
-- [ ] Note title character limit (with indicator)
+- [x] Note title character limit (with indicator)
 - [x] Archive
 
 ## Potential Improvement
@@ -26,7 +31,7 @@ This is a <b>Personal Note Taking App</b> project<br>
 
 ## Note
 
-Model:
+Model (current):
 
 ```typescript
 interface Note {
