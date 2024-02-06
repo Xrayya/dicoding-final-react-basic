@@ -1,18 +1,35 @@
 import React from "react";
-import { Input, TextArea } from "./Form";
+import { Input, TextArea } from "./FormElements";
 
-type addNoteProps = {
-  onAddNote: (noteTitle: string, noteBody: string) => any;
+type addNoteButtonProps = {
+  onClick: () => any;
 };
 
-type addNoteState = {
+type addNoteFormProps = {
+  onAddNote: (noteTitle: string, noteBody: string) => any;
+  onClose: () => any;
+};
+
+type addNoteFormState = {
   noteTitle: string;
   noteBody: string;
 };
 
-class AddNoteForm extends React.Component<addNoteProps, addNoteState> {
-  constructor(props: addNoteProps) {
+export function Button({ onClick }: addNoteButtonProps) {
+  return (
+    <Input
+      type="button"
+      onClick={onClick}
+      className="bg-primary cursor-pointer"
+      value={"Add Note"}
+    />
+  );
+}
+
+export class Form extends React.Component<addNoteFormProps, addNoteFormState> {
+  constructor(props: addNoteFormProps) {
     super(props);
+
     this.state = {
       noteTitle: "",
       noteBody: "",
@@ -39,14 +56,26 @@ class AddNoteForm extends React.Component<addNoteProps, addNoteState> {
           onSubmit={(e) => {
             e.preventDefault();
             this.props.onAddNote(this.state.noteTitle, this.state.noteBody);
+            this.setState({ noteTitle: "", noteBody: "" });
+            this.props.onClose();
           }}
         >
-          <h2 className="text-2xl font-bold text-secondary">Add Note</h2>
+          <div className="flex flex-row">
+            <h2 className="flex-1 text-2xl font-bold text-secondary">
+              Add Note
+            </h2>
+            <button
+              className="flex justify-center items-center text-4xl rounded-md bg-slate-200 h-8 w-8 box-border"
+              onClick={this.props.onClose}
+            >
+              ×
+            </button>
+          </div>
           <Input
             type="text"
             id="note-title"
             name="note-title"
-            pattern="[A-Za-z]{3}"
+            // pattern="[A-Za-z]{3}"
             title="Note Title"
             label="Title"
             value={this.state.noteTitle}
@@ -72,5 +101,3 @@ class AddNoteForm extends React.Component<addNoteProps, addNoteState> {
     );
   }
 }
-
-export default AddNoteForm;

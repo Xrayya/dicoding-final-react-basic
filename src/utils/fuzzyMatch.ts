@@ -40,3 +40,11 @@ function stringSimilarity(str1: string, str2: string, gramSize: number = 2) {
   }
   return hits / total;
 }
+
+export function filterByPattern(
+  pattern: string,
+  str: string,
+  treshold: number,
+): boolean {
+  return stringSimilarity(pattern, str) >= treshold;
+}

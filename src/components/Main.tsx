@@ -1,16 +1,19 @@
+import { getInitialData } from "@/fixtures/dummy-data";
 import { Note } from "@/model";
 import React from "react";
-import AddNoteForm from "./AddNoteForm";
 import NoteDetail from "./NoteDetail";
 import NoteGrid from "./NoteGrid";
 import * as NoteItem from "./NoteItem";
-import { getInitialData } from "@/fixtures/dummy-data";
+import * as AddNote from "./AddNote";
+import SearchBar from "./SearchBar";
+import { filterByPattern } from "@/utils/fuzzyMatch";
 
 type mainProps = {};
 type mainState = {
   notes: Note[];
   addNote: boolean;
   focusedNote?: Note;
+  searchStr?: string;
 };
 
 class Main extends React.Component<mainProps, mainState> {
@@ -21,8 +24,27 @@ class Main extends React.Component<mainProps, mainState> {
       notes: getInitialData(),
       addNote: false,
       focusedNote: undefined,
+      searchStr: undefined,
     };
   }
+
+  private handleAddNoteButtonClick = () => {
+    this.setState((prev) => {
+      return {
+        ...prev,
+        addNote: true,
+      };
+    });
+  };
+
+  private handleAddNoteFormClose = () => {
+    this.setState((prev) => {
+      return {
+        ...prev,
+        addNote: false,
+      };
+    });
+  };
 
   private handleAddNote = (noteTitle: string, noteBody: string) => {
     this.setState(({ notes }) => {
@@ -37,6 +59,15 @@ class Main extends React.Component<mainProps, mainState> {
             createdAt: new Date(),
           },
         ],
+      };
+    });
+  };
+
+  private handleSearch = (searchStr?: string) => {
+    this.setState(({ ...prev }) => {
+      return {
+        ...prev,
+        searchStr: searchStr,
       };
     });
   };
@@ -83,8 +114,13 @@ class Main extends React.Component<mainProps, mainState> {
     const { notes } = this.state;
     return (
       <div className="p-32 pt-16">
+        <AddNote.Button onClick={this.handleAddNoteButtonClick} />
+        <SearchBar onSearch={this.handleSearch} />
         {this.state.addNote ? (
-          <AddNoteForm onAddNote={this.handleAddNote} />
+          <AddNote.Form
+            onAddNote={this.handleAddNote}
+            onClose={this.handleAddNoteFormClose}
+          />
         ) : null}
         {this.state.focusedNote ? (
           <NoteDetail
@@ -94,7 +130,14 @@ class Main extends React.Component<mainProps, mainState> {
         ) : null}
         <NoteGrid label={"Active Notes"}>
           {notes
-            .filter((note) => !note.archived)
+            .filter(
+              (note) =>
+                !note.archived &&
+                (this.state.searchStr
+                  ? filterByPattern(this.state.searchStr, note.title, 0.05) ||
+                  filterByPattern(this.state.searchStr, note.body, 0.05)
+                  : true),
+            )
             .map((note) => (
               <NoteItem.Item key={note.id}>
                 <NoteItem.Title title={note.title} />
@@ -106,13 +149,13 @@ class Main extends React.Component<mainProps, mainState> {
                 <NoteItem.Body body={note.body} maxWord={20} />
                 <NoteItem.ButtonGroup>
                   <NoteItem.Button
-                    label={"Delete"}
+                    label="Delete"
                     type="error"
                     noteId={note.id}
                     onClick={this.handleItemDelete}
                   />
                   <NoteItem.Button
-                    label={"Archive"}
+                    label="Archive"
                     noteId={note.id}
                     onClick={this.handleItemArchive}
                   />
@@ -122,7 +165,14 @@ class Main extends React.Component<mainProps, mainState> {
         </NoteGrid>
         <NoteGrid label={"Archived Notes"}>
           {notes
-            .filter((note) => note.archived)
+            .filter(
+              (note) =>
+                note.archived &&
+                (this.state.searchStr
+                  ? filterByPattern(this.state.searchStr, note.title, 0.05) ||
+                  filterByPattern(this.state.searchStr, note.body, 0.05)
+                  : true),
+            )
             .map((note) => (
               <NoteItem.Item key={note.id}>
                 <NoteItem.Title title={note.title} />
@@ -134,13 +184,13 @@ class Main extends React.Component<mainProps, mainState> {
                 <NoteItem.Body body={note.body} maxWord={20} />
                 <NoteItem.ButtonGroup>
                   <NoteItem.Button
-                    label={"Delete"}
+                    label="Delete"
                     type="error"
                     noteId={note.id}
                     onClick={this.handleItemDelete}
                   />
                   <NoteItem.Button
-                    label={"Unarchive"}
+                    label="Unarchive"
                     noteId={note.id}
                     onClick={this.handleItemUnarchive}
                   />

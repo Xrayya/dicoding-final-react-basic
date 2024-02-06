@@ -91,7 +91,7 @@ export function ButtonGroup({ children }: NoteButtonGroup) {
 
 export function Item({ children }: NoteItemProps) {
   return (
-    <div className="w-fit flex flex-col justify-start border-2 border-slate-600 rounded-lg overflow-hidden">
+    <div className="flex flex-col justify-start border-2 border-slate-600 rounded-lg overflow-hidden">
       {children}
     </div>
   );
