@@ -1,13 +1,13 @@
 import { Note } from "@/model";
 
 type noteDetailProps = {
-  note: Note;
+  note?: Note;
   onClose: () => any;
 };
 
 function NoteDetail({ note, onClose }: noteDetailProps) {
   return (
-    <div className="fixed inset-0 m-auto w-1/2 h-3/4">
+    <div className={`${!note && "hidden"} fixed inset-0 m-auto w-1/2 h-3/4`}>
       <div className="p-4 rounded-lg bg-slate-300 h-full">
         <div className="flex flex-row justify-between items-center">
           <h2 className="text-2xl font-bold text-secondary">{note?.title}</h2>

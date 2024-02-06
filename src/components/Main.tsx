@@ -1,17 +1,16 @@
 import { getInitialData } from "@/fixtures/dummy-data";
 import { Note } from "@/model";
+import { filterByPattern } from "@/utils/fuzzyMatch";
 import React from "react";
+import { AddNote } from "./AddNote";
 import NoteDetail from "./NoteDetail";
 import NoteGrid from "./NoteGrid";
 import * as NoteItem from "./NoteItem";
-import * as AddNote from "./AddNote";
 import SearchBar from "./SearchBar";
-import { filterByPattern } from "@/utils/fuzzyMatch";
 
 type mainProps = {};
 type mainState = {
   notes: Note[];
-  addNote: boolean;
   focusedNote?: Note;
   searchStr?: string;
 };
@@ -22,29 +21,10 @@ class Main extends React.Component<mainProps, mainState> {
 
     this.state = {
       notes: getInitialData(),
-      addNote: false,
       focusedNote: undefined,
       searchStr: undefined,
     };
   }
-
-  private handleAddNoteButtonClick = () => {
-    this.setState((prev) => {
-      return {
-        ...prev,
-        addNote: true,
-      };
-    });
-  };
-
-  private handleAddNoteFormClose = () => {
-    this.setState((prev) => {
-      return {
-        ...prev,
-        addNote: false,
-      };
-    });
-  };
 
   private handleAddNote = (noteTitle: string, noteBody: string) => {
     this.setState(({ notes }) => {
@@ -101,7 +81,7 @@ class Main extends React.Component<mainProps, mainState> {
     });
   };
 
-  handleNoteItemClick = (noteId: Note["id"]) => {
+  private handleNoteItemClick = (noteId: Note["id"]) => {
     this.setState(({ focusedNote, notes, ...rest }) => {
       return {
         ...rest,
@@ -124,20 +104,12 @@ class Main extends React.Component<mainProps, mainState> {
     const { notes } = this.state;
     return (
       <div className="p-32 pt-16">
-        <AddNote.Button onClick={this.handleAddNoteButtonClick} />
+        <AddNote onAddNote={this.handleAddNote} />
         <SearchBar onSearch={this.handleSearch} />
-        {this.state.addNote ? (
-          <AddNote.Form
-            onAddNote={this.handleAddNote}
-            onClose={this.handleAddNoteFormClose}
-          />
-        ) : null}
-        {this.state.focusedNote ? (
-          <NoteDetail
-            note={this.state.focusedNote}
-            onClose={this.handleDetailClose}
-          />
-        ) : null}
+        <NoteDetail
+          note={this.state.focusedNote}
+          onClose={this.handleDetailClose}
+        />
         <NoteGrid label={"Active Notes"}>
           {notes
             .filter(

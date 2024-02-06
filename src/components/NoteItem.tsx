@@ -97,9 +97,7 @@ export function Item({ noteId, onClick, children }: NoteItemProps) {
     <div
       className={`flex flex-col justify-start border-2 border-slate-600 rounded-lg overflow-hidden ${onClick ? "cursor-pointer" : ""}`}
       onClick={() => {
-        if (onClick) {
-          onClick(noteId);
-        }
+        onClick && onClick(noteId);
       }}
     >
       {children}
