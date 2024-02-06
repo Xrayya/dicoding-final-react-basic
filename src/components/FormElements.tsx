@@ -1,14 +1,14 @@
+import React from "react";
+
 type inputProps = React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,
   HTMLInputElement
 > & { label?: string; labelClassName?: string };
-export function Input({
-  label,
-  labelClassName,
-  id,
-  className,
-  ...rest
-}: inputProps) {
+
+export const Input = React.forwardRef<HTMLInputElement, inputProps>(function (
+  { label, labelClassName, id, className, ...rest },
+  ref,
+) {
   return (
     <div className="flex flex-col w-full my-1">
       {label ? (
@@ -18,17 +18,19 @@ export function Input({
       ) : null}
       <input
         id={id}
+        ref={ref}
         className={`rounded-md p-2 ${className}`}
         {...rest}
       />
     </div>
   );
-}
+});
 
 type textAreaProps = React.DetailedHTMLProps<
   React.TextareaHTMLAttributes<HTMLTextAreaElement>,
   HTMLTextAreaElement
 > & { label?: string; labelClassName?: string };
+
 export function TextArea({
   label,
   labelClassName,

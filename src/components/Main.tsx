@@ -104,7 +104,7 @@ class Main extends React.Component<mainProps, mainState> {
     const { notes } = this.state;
     return (
       <div className="p-32 pt-16">
-        <AddNote onAddNote={this.handleAddNote} />
+        <AddNote onAddNote={this.handleAddNote} maxTitleChar={50} />
         <SearchBar onSearch={this.handleSearch} />
         <NoteDetail
           note={this.state.focusedNote}

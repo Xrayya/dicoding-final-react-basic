@@ -11,7 +11,7 @@ export default {
         primary: "#90c46c",
         secondary: "#488dcf",
         error: "#dc2626",
-        warning: "#fde047",
+        warning: "#f59e0b",
         info: "#3b82f6",
       },
       gridTemplateColumns: {
