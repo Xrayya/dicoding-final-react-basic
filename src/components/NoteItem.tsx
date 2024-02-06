@@ -95,7 +95,7 @@ export function ButtonGroup({ children }: NoteButtonGroup) {
 export function Item({ noteId, onClick, children }: NoteItemProps) {
   return (
     <div
-      className={`flex flex-col justify-start border-2 border-slate-600 rounded-lg overflow-hidden ${onClick ? "cursor-pointer" : ""}`}
+      className={`flex flex-col justify-start border-2 border-slate-600 rounded-lg overflow-hidden ${onClick && "cursor-pointer"}`}
       onClick={() => {
         onClick && onClick(noteId);
       }}
