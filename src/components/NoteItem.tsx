@@ -27,6 +27,8 @@ type NoteButtonGroup = {
 };
 
 type NoteItemProps = {
+  noteId: Note["id"];
+  onClick?: (noteId: Note["id"]) => any;
   children?: React.ReactNode;
 };
 
@@ -76,7 +78,8 @@ export function Button({ label, type, noteId, onClick }: NoteButton) {
   return (
     <button
       className={typeClass}
-      onClick={() => {
+      onClick={(e) => {
+        e.stopPropagation();
         onClick(noteId);
       }}
     >
@@ -89,9 +92,16 @@ export function ButtonGroup({ children }: NoteButtonGroup) {
   return <div className="p-0 flex flex-row justify-evenly">{children}</div>;
 }
 
-export function Item({ children }: NoteItemProps) {
+export function Item({ noteId, onClick, children }: NoteItemProps) {
   return (
-    <div className="flex flex-col justify-start border-2 border-slate-600 rounded-lg overflow-hidden">
+    <div
+      className={`flex flex-col justify-start border-2 border-slate-600 rounded-lg overflow-hidden ${onClick ? "cursor-pointer" : ""}`}
+      onClick={() => {
+        if (onClick) {
+          onClick(noteId);
+        }
+      }}
+    >
       {children}
     </div>
   );

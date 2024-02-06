@@ -101,6 +101,16 @@ class Main extends React.Component<mainProps, mainState> {
     });
   };
 
+  handleNoteItemClick = (noteId: Note["id"]) => {
+    this.setState(({ focusedNote, notes, ...rest }) => {
+      return {
+        ...rest,
+        notes: notes,
+        focusedNote: notes[notes.findIndex((note) => note.id === noteId)],
+      };
+    });
+  };
+
   private handleDetailClose = () => {
     this.setState((prev) => {
       return {
@@ -139,7 +149,11 @@ class Main extends React.Component<mainProps, mainState> {
                   : true),
             )
             .map((note) => (
-              <NoteItem.Item key={note.id}>
+              <NoteItem.Item
+                key={note.id}
+                noteId={note.id}
+                onClick={this.handleNoteItemClick}
+              >
                 <NoteItem.Title title={note.title} />
                 <NoteItem.DateString
                   date={note.createdAt}
@@ -174,7 +188,11 @@ class Main extends React.Component<mainProps, mainState> {
                   : true),
             )
             .map((note) => (
-              <NoteItem.Item key={note.id}>
+              <NoteItem.Item
+                key={note.id}
+                noteId={note.id}
+                onClick={this.handleNoteItemClick}
+              >
                 <NoteItem.Title title={note.title} />
                 <NoteItem.DateString
                   date={note.createdAt}
