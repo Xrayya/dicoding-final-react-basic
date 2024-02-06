@@ -20,7 +20,7 @@ export function Button({ onClick }: addNoteButtonProps) {
     <Input
       type="button"
       onClick={onClick}
-      className="bg-primary cursor-pointer"
+      className="mb-8 bg-primary cursor-pointer text-xl font-bold text-slate-50"
       value={"Add Note"}
     />
   );
