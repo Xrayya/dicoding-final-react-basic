@@ -1,5 +1,5 @@
 type NoteGridProps = React.PropsWithChildren<{
-  label: string;
+  label?: string;
 }>;
 
 function NoteGrid({ label, children }: NoteGridProps) {
