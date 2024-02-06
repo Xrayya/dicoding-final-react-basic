@@ -117,7 +117,7 @@ class Main extends React.Component<mainProps, mainState> {
                 !note.archived &&
                 (this.state.searchStr
                   ? filterByPattern(this.state.searchStr, note.title, 0.05) ||
-                  filterByPattern(this.state.searchStr, note.body, 0.05)
+                    filterByPattern(this.state.searchStr, note.body, 0.05)
                   : true),
             )
             .map((note) => (
@@ -156,7 +156,7 @@ class Main extends React.Component<mainProps, mainState> {
                 note.archived &&
                 (this.state.searchStr
                   ? filterByPattern(this.state.searchStr, note.title, 0.05) ||
-                  filterByPattern(this.state.searchStr, note.body, 0.05)
+                    filterByPattern(this.state.searchStr, note.body, 0.05)
                   : true),
             )
             .map((note) => (
